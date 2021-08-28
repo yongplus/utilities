@@ -1,6 +1,6 @@
 ### 协程
 
-Coroutine模块用于需求开发。
+Coroutine模块用于并发需求开发。
 
 模块安装：
 > go get github.com/yongplus/unity/coroutine   
