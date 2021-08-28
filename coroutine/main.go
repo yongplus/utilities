@@ -42,8 +42,6 @@ func (m *Coroutine) Push(data interface{}){
 }
 
 func (m *Coroutine) SetWorker(worker func(interface{})){
-
-
 	for i:=0;i<m.num;i++{
 		go (func(){
 			defer m.waiter.Done()
@@ -57,7 +55,6 @@ func (m *Coroutine) SetWorker(worker func(interface{})){
 			}
 		})()
 	}
-
 }
 /**
  * Waiting for all the coroutine to finish.
