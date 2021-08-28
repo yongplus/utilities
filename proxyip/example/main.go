@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/franela/goreq"
-	proxyip2 "github.com/yongplus/unity/proxyip"
+	proxyip "github.com/yongplus/unity/proxyip"
 	"log"
 	"strings"
 )
@@ -10,7 +10,7 @@ import (
 func main(){
 
 	//设置url 返回必须是 ip:port text格式 并且是\r\n分割
-	proxyip := proxyip2.New("http://webapi.http.zhimacangku.com/getip?num=10&type=1&pro=440000&city=0&yys=0&port=1&time=1&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions=")
+	proxyip := proxyip.New("http://webapi.http.zhimacangku.com/getip?num=10&type=1&pro=440000&city=0&yys=0&port=1&time=1&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions=")
 
 	//获取ip
 	ip := proxyip.GetOne()
