@@ -60,7 +60,7 @@ func (m *Coroutine) SetWorker(worker func(interface{})){
 
 }
 /**
- * Waiting for all the coroutine to finished.
+ * Waiting for all the coroutine to finish.
  */
 func (m *Coroutine) Wait(){
 	m.cancel()
