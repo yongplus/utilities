@@ -11,9 +11,8 @@ func main(){
 	crt.SetWorker(func(val interface{}) {
 		log.Println(val.(int))
 	})
-	for i:=0;i<10000;i++{
-		crt.Push(i)
-	}
+
+	crt.Push(1)
 	crt.Wait()
 	log.Println("执行完成")
 }
