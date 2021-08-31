@@ -22,10 +22,10 @@ SetWorker2(function(val interface{}){})
 //Push the value to the function passed into the SetWorker*
 Push(val interface{})
 
-//Set a listener of the return result from the workers 
+//Set a listener of the result returned from the workers 
 SetListener(recv func(interface{}))
 
-//Waiting for the all the workers and Listener to finishe and exit. 
+//Waiting for the all the workers and listener to finishe and exit. 
 Wait() 
 ```
 <br>  
