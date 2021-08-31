@@ -31,7 +31,7 @@ Wait()
 <br>  
   
 
-#### 调用代码：
+#### Example：
 ```go
 //初始化，(协程数，channel缓存数)
 crt := coroutine.New(6,1)
