@@ -11,7 +11,7 @@ Coroutine模块用于并发需求开发。
 ```go
 
 //Init the struct.
-New(coroutineNums int,chanBufferSize int)
+New(int coroutineNums,int chanBufferSize)
 
 //Set a worker with a return result.
 SetWorker(function(val interface{}){} interface{})
