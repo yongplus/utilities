@@ -14,7 +14,7 @@ Coroutine模块用于并发需求开发。
 New(coroutineNums int,chanBufferSize int)
 
 //Set a worker with a return result.
-SetWorker(function(val interface{}){} interface{})
+SetWorker(function(val interface{}) interface{} {})
 
 //Set a worker without any return result.
 SetWorker2(function(val interface{}){})
