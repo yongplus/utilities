@@ -2,7 +2,7 @@
 
 Coroutine模块用于并发需求开发。
 
-#### 模块安装：
+#### Installation：
 > go get github.com/yongplus/unity/coroutine
 
 <br>  
