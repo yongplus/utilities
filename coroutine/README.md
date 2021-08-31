@@ -16,7 +16,7 @@ New(coroutineNums int,chanBufferSize int)
 //Set a worker with a return result.
 SetWorker(function(val interface{}){} interface{})
 
-//Set a worker wihtout a return result.
+//Set a worker without a return result.
 SetWorker2(function(val interface{}){})
 
 //Push the value to the function passed into SetWorker*
