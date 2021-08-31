@@ -10,7 +10,7 @@ Coroutine模块用于并发需求开发。
 #### Methods:
 ```go
 
-//Init the struct.
+//New an instance.
 New(coroutineNums int,chanBufferSize int)
 
 //Set a worker with a return result.
@@ -36,7 +36,7 @@ Wait()
 //初始化，(协程数，channel缓存数)
 crt := coroutine.New(6,1)
 //设置执行函数，val是通过push写入的数据，透传给回调函数。
-crt.SetWorker(func(val interface{}) {
+crt.SetWorker2(func(val interface{}) {
 
 })
 for i:=0;i<10000;i++{
