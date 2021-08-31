@@ -1,11 +1,37 @@
-### 协程
+## 协程
 
 Coroutine模块用于并发需求开发。
 
-模块安装：
-> go get github.com/yongplus/unity/coroutine   
+#### 模块安装：
+> go get github.com/yongplus/unity/coroutine
 
-调用代码：   
+<br>  
+
+#### Methods:
+```go
+
+//Init the struct.
+New(coroutineNums int,chanBufferSize int)
+
+//Set a worker with a return result.
+SetWorker(function(val interface{}){} interface{})
+
+//Set a worker wihtout a return result.
+SetWorker2(function(val interface{}){})
+
+//Push the value to the function passed into SetWorker*
+Push(val interface{})
+
+//Set a istener of the return result from workers 
+SetListener(recv func(interface{}))
+
+//Waiting for the all the workers and Listener to finishe and exit. 
+Wait() 
+```
+<br>  
+  
+
+#### 调用代码：
 ```go
 //初始化，(协程数，channel缓存数)
 crt := coroutine.New(6,1)
