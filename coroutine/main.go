@@ -2,6 +2,7 @@ package coroutine
 
 import (
 	"context"
+	"log"
 	"sync"
 )
 
@@ -87,6 +88,7 @@ func (m *Coroutine) SetListener(recv func(interface{})) {
 		for {
 			val := <-m.recvChans
 			if val == nil {
+				log.Println("null")
 				return
 			}
 			recv(val)
@@ -102,11 +104,10 @@ func (m *Coroutine) RecvChans() chan interface{} {
 
 func (m *Coroutine) _resetRecvChans(){
 	if m.recvChans != nil { // if the recvChans has been set than release it and reset
-		//tmpChans := m.recvChans
-		//m.recvChans = nil
-		//tmpChans <- nil
-		m.recvChans<- nil
-		close(m.recvChans)
+		tmpChans := m.recvChans
+		m.recvChans <- nil
+		m.recvChans = nil
+		close(tmpChans)
 	}
 	m.recvChans = make(chan interface{}, 0)
 }
