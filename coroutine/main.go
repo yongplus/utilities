@@ -102,10 +102,11 @@ func (m *Coroutine) RecvChans() chan interface{} {
 
 func (m *Coroutine) _resetRecvChans(){
 	if m.recvChans != nil { // if the recvChans has been set than release it and reset
-		tmpChans := m.recvChans
-		m.recvChans = nil
-		tmpChans <- nil
-		close(tmpChans)
+		//tmpChans := m.recvChans
+		//m.recvChans = nil
+		//tmpChans <- nil
+		m.recvChans<- nil
+		close(m.recvChans)
 	}
 	m.recvChans = make(chan interface{}, 0)
 }

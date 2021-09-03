@@ -13,12 +13,6 @@ func main() {
 		return val.(int) * val.(int)
 	})
 
-	crt.SetListener(func(val interface{}) {
-		if 999*999 == val {
-			time.Sleep(time.Second * 10)
-		}
-		log.Printf("收到结果：%d", val)
-	})
 
 	go (func(valChans chan interface{}) {
 		for {
@@ -30,9 +24,16 @@ func main() {
 			if 999*999 == val.(int) {
 				time.Sleep(time.Second * 10)
 			}
-			log.Printf("收到结果：%d", val)
+			log.Printf("收到结果2：%d", val)
 		}
 	})(crt.RecvChans())
+
+	crt.SetListener(func(val interface{}) {
+		if 999*999 == val {
+			time.Sleep(time.Second * 10)
+		}
+		log.Printf("收到结果1：%d", val)
+	})
 
 	for i := 0; i < 1000; i++ {
 		crt.Push(i)
