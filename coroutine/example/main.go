@@ -1,13 +1,12 @@
 package main
 
 import (
-	"github.com/yongplus/unity/coroutine"
+	"github.com/yongplus/utility/coroutine"
 	"log"
 	"time"
 )
 
 func main() {
-
 	crt := coroutine.New(1, 1)
 	crt.SetWorker(func(val interface{}) interface{} {
 		log.Println(val.(int))
@@ -20,6 +19,20 @@ func main() {
 		}
 		log.Printf("收到结果：%d", val)
 	})
+
+	go (func(valChans chan interface{}) {
+		for {
+			val := <-valChans
+			if val == nil {
+				log.Println("退出")
+				return
+			}
+			if 999*999 == val.(int) {
+				time.Sleep(time.Second * 10)
+			}
+			log.Printf("收到结果：%d", val)
+		}
+	})(crt.RecvChans())
 
 	for i := 0; i < 1000; i++ {
 		crt.Push(i)

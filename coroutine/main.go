@@ -14,6 +14,9 @@ type Coroutine struct {
 	recvChans chan interface{}
 }
 
+type Chans struct {
+
+}
 // @param.num:the number of coroutine
 // @param.num:the size of chans buffer
 func New(num int, chanSize int) *Coroutine {
@@ -58,6 +61,7 @@ func (m *Coroutine) SetWorker(worker func(interface{}) interface{}) {
 
 //Set a worker without a return result
 func (m *Coroutine) SetWorker2(worker func(interface{})) {
+
 	for i := 0; i < m.num; i++ {
 		go (func() {
 			defer m.waiter.Done()
@@ -78,7 +82,7 @@ func (m *Coroutine) SetListener(recv func(interface{})) {
 	if recv == nil {
 		return
 	}
-	m.recvChans = make(chan interface{}, 0)
+	m._resetRecvChans()
 	go (func() {
 		for {
 			val := <-m.recvChans
@@ -89,6 +93,24 @@ func (m *Coroutine) SetListener(recv func(interface{})) {
 		}
 	})()
 }
+
+//Set the result receive function
+func (m *Coroutine) RecvChans() chan interface{} {
+	m._resetRecvChans()
+	return m.recvChans
+}
+
+func (m *Coroutine) _resetRecvChans(){
+	if m.recvChans != nil { // if the recvChans has been set than release it and reset
+		tmpChans := m.recvChans
+		m.recvChans = nil
+		tmpChans <- nil
+		close(tmpChans)
+	}
+	m.recvChans = make(chan interface{}, 0)
+}
+
+
 
 // Waiting for all the workers and listener to finish.
 func (m *Coroutine) Wait() {
@@ -103,4 +125,5 @@ func (m *Coroutine) Wait() {
 	}
 
 	close(m.chans)
+	close(m.recvChans)
 }

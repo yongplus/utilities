@@ -1,4 +1,4 @@
-module github.com/yongplus/unity/proxyip
+module github.com/yongplus/utility/proxyip
 
 go 1.12
 
