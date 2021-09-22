@@ -16,8 +16,8 @@ type Coroutine struct {
 }
 
 type Chans struct {
-
 }
+
 // @param.num:the number of coroutine
 // @param.num:the size of chans buffer
 func New(num int, chanSize int) *Coroutine {
@@ -102,7 +102,7 @@ func (m *Coroutine) RecvChans() chan interface{} {
 	return m.recvChans
 }
 
-func (m *Coroutine) _resetRecvChans(){
+func (m *Coroutine) _resetRecvChans() {
 	if m.recvChans != nil { // if the recvChans has been set than release it and reset
 		tmpChans := m.recvChans
 		m.recvChans <- nil
@@ -111,8 +111,6 @@ func (m *Coroutine) _resetRecvChans(){
 	}
 	m.recvChans = make(chan interface{}, 0)
 }
-
-
 
 // Waiting for all the workers and listener to finish.
 func (m *Coroutine) Wait() {
@@ -124,8 +122,9 @@ func (m *Coroutine) Wait() {
 	//time.Sleep(time.Millisecond*50)
 	if m.recvChans != nil {
 		m.recvChans <- nil
+		close(m.recvChans)
 	}
 
 	close(m.chans)
-	close(m.recvChans)
+
 }

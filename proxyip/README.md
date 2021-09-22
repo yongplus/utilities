@@ -3,7 +3,7 @@
 proxyip用于获取代理ip，日常爬数据或者做其它需要N多ip资源时，可通过传入API Url路径，获取ip并管理。
 
 #### 模块安装：
-> go get github.com/yongplus/unity/proxyip   
+> go get github.com/yongplus/utility/proxyip   
 
 <br>
 

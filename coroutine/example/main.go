@@ -34,13 +34,10 @@ func main() {
 		}
 	})(crt.RecvChans())
 
-
 	for i := 0; i < 1000; i++ {
 		crt.Push(i)
 	}
 	log.Println("等待退出")
 	crt.Wait()
-
-
 	log.Println("执行完成")
 }
