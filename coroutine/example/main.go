@@ -9,9 +9,7 @@ import (
 func main() {
 	crt := coroutine.New(1, 1)
 	crt.SetWorker(func(val interface{}) interface{} {
-		// 延迟处理的函数
-		var x map[int]int
-		x[2] += 3
+
 		log.Println(val.(int))
 		return val.(int) * val.(int)
 	})

@@ -146,6 +146,8 @@ func (m *Coroutine) _recovery() {
 	case runtime.Error: // 运行时错误
 		log.Println("runtime error:", err)
 	default: // 非运行时错误
-		log.Println("error:", err)
+		if err != nil {
+			log.Println("error:", err)
+		}
 	}
 }
