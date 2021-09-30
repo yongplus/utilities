@@ -9,16 +9,19 @@ import (
 func main() {
 	crt := coroutine.New(1, 1)
 	crt.SetWorker(func(val interface{}) interface{} {
+		// 延迟处理的函数
+		var x map[int]int
+		x[2] += 3
 		log.Println(val.(int))
 		return val.(int) * val.(int)
 	})
-
-	crt.SetListener(func(val interface{}) {
-		if 999*999 == val {
-			time.Sleep(time.Second * 10)
-		}
-		log.Printf("收到结果1：%d", val)
-	})
+	/*
+		crt.SetListener(func(val interface{}) {
+			if 999*999 == val {
+				time.Sleep(time.Second * 10)
+			}
+			log.Printf("收到结果1：%d", val)
+		})*/
 
 	go (func(valChans chan interface{}) {
 		for {

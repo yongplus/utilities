@@ -3,6 +3,7 @@ package coroutine
 import (
 	"context"
 	"log"
+	"runtime"
 	"sync"
 )
 
@@ -42,8 +43,10 @@ func (m *Coroutine) Push(data interface{}) {
 
 //Set a worker with a return result
 func (m *Coroutine) SetWorker(worker func(interface{}) interface{}) {
+
 	for i := 0; i < m.num; i++ {
 		go (func() {
+			// 延迟处理的函数
 			defer m.waiter.Done()
 			for {
 
@@ -51,7 +54,10 @@ func (m *Coroutine) SetWorker(worker func(interface{}) interface{}) {
 				if val == nil {
 					return
 				}
-				result := worker(val)
+				result := func() interface{} {
+					defer m._recovery()
+					return worker(val)
+				}()
 				if result != nil && m.recvChans != nil {
 					m.recvChans <- result
 				}
@@ -72,7 +78,11 @@ func (m *Coroutine) SetWorker2(worker func(interface{})) {
 				if val == nil {
 					return
 				}
-				worker(val)
+				func() {
+					defer m._recovery()
+					worker(val)
+				}()
+
 			}
 		})()
 	}
@@ -127,4 +137,15 @@ func (m *Coroutine) Wait() {
 
 	close(m.chans)
 
+}
+
+func (m *Coroutine) _recovery() {
+	// 发生宕机时，获取panic传递的上下文并打印
+	err := recover()
+	switch err.(type) {
+	case runtime.Error: // 运行时错误
+		log.Println("runtime error:", err)
+	default: // 非运行时错误
+		log.Println("error:", err)
+	}
 }
