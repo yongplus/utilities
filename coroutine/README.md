@@ -11,7 +11,7 @@ Coroutine模块用于并发需求开发。
 ```go
 
 //New an instance.
-New(coroutineNums int,chanBufferSize int) *Coroutine
+func New(coroutineNums int,chanBufferSize int) *Coroutine
 
 //Set a worker with a return result.
 func (m *Coroutine) SetWorker(function(val interface{}) interface{} {})
@@ -29,7 +29,7 @@ func (m *Coroutine) SetListener(recv func(interface{}))
 func (m *Coroutine) RecvChans() chan interface{}
 
 //Waiting for the all the workers and listener to finishe and exit. 
-Wait() 
+func (m *Coroutine) Wait() 
 ```
 <br>  
   
