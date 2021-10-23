@@ -131,6 +131,7 @@ func (m *Coroutine) Wait() {
 	for i := 0; i < m.num; i++ {
 		m.chans <- nil
 	}
+	m.havesetworker = false
 
 	m.waiter.Wait()
 	//time.Sleep(time.Millisecond*50)
