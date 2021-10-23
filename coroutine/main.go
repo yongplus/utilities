@@ -40,7 +40,7 @@ func (m *Coroutine) Push(data interface{}) {
 		return
 	}
 	if !m.havesetworker {
-		panic("Please make sure set worker by calling SetWorker* methods before pushing data~!")
+		panic("Please make sure have set worker by calling SetWorker* methods before pushing data~!")
 	}
 	m.chans <- data
 }
