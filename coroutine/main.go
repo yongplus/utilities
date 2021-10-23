@@ -8,12 +8,13 @@ import (
 )
 
 type Coroutine struct {
-	waiter    *sync.WaitGroup
-	num       int
-	ctx       context.Context
-	cancel    context.CancelFunc
-	chans     chan interface{}
-	recvChans chan interface{}
+	waiter        *sync.WaitGroup
+	num           int
+	ctx           context.Context
+	cancel        context.CancelFunc
+	chans         chan interface{}
+	recvChans     chan interface{}
+	havesetworker bool
 }
 
 type Chans struct {
@@ -38,12 +39,15 @@ func (m *Coroutine) Push(data interface{}) {
 	if data == nil {
 		return
 	}
+	if !m.havesetworker {
+		panic("Please make sure set worker by calling SetWorker* methods before pushing data~!")
+	}
 	m.chans <- data
 }
 
 //Set a worker with a return result
 func (m *Coroutine) SetWorker(worker func(interface{}) interface{}) {
-
+	m.havesetworker = true
 	for i := 0; i < m.num; i++ {
 		go (func() {
 			// 延迟处理的函数
@@ -68,7 +72,7 @@ func (m *Coroutine) SetWorker(worker func(interface{}) interface{}) {
 
 //Set a worker without a return result
 func (m *Coroutine) SetWorker2(worker func(interface{})) {
-
+	m.havesetworker = true
 	for i := 0; i < m.num; i++ {
 		go (func() {
 			defer m.waiter.Done()
