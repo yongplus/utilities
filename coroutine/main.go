@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"runtime"
+	"runtime/debug"
 	"sync"
 )
 
@@ -150,9 +151,11 @@ func (m *Coroutine) _recovery() {
 	switch err.(type) {
 	case runtime.Error: // 运行时错误
 		log.Println("runtime error:", err)
+		debug.PrintStack()
 	default: // 非运行时错误
 		if err != nil {
 			log.Println("error:", err)
+			debug.PrintStack()
 		}
 	}
 }
