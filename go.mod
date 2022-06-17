@@ -1,4 +1,4 @@
-module github.com/yongplus/utility
+module github.com/yongplus/utilites
 
 go 1.16
 
